@@ -125,9 +125,6 @@ textarea {
 
 }
 
-
-
-
 @font-face {
     font-family: 'league_gothicCnRg';
     src: url('leaguegothic-condensedregular-webfont.eot');
@@ -139,9 +136,6 @@ textarea {
     font-style: normal;
 
 }
-
-
-
 
 @font-face {
     font-family: 'league_gothicitalic';
@@ -155,9 +149,6 @@ textarea {
 
 }
 
-
-
-
 @font-face {
     font-family: 'league_gothicregular';
     src: url('leaguegothic-regular-webfont.eot');
@@ -168,25 +159,6 @@ textarea {
     font-weight: normal;
     font-style: normal;
 
-}
-
-h1>a{
-	text-align:center !important;
-	color:#263248 !important;
-	
-	text-decoration:none !important;
-}
-h1>a:hover{
-	text-decoration:underline !important;
-}
-h1{
-	text-align: center !important;
-	margin-top: 0;
-	margin-bottom: 0px;
-	padding-bottom: 0px;
-}
-h2{
-	text-align:center !important;
 }
 
 .list{
@@ -217,7 +189,32 @@ body {
 	border: 0;
 }
 
-
+header {
+    /*position:fixed;
+    z-index:1; */
+    width:70%;
+    background-color:rgba(0,0,0,.4);
+    text-align:left;
+}
+header h1 { margin: 0; /*text-shadow:0px 0px 0.1em #000;*/}
+header h1 a, nav a {
+    display:block;
+    float:left;
+    color:#000;
+    height:50px;
+    line-height:50px;
+    padding: 0 10px;
+    text-decoration:none;
+    /*TODO collapse navigation*/
+}
+nav a {
+    opacity:0.8;
+}
+nav a.selected {
+    opacity:1;
+    font-weight: bold;
+    /*text-shadow:0px 0px 0.1em #000;*/
+}
 .title {
 font: 150%/1.4 'Raleway',Helvetica, sans-serif;
 font-weight:600;
@@ -329,9 +326,10 @@ ul li a, ul li a:visited {
 	  }
 	  #feeddiv{
 		  float:right;
-		  overflow:hidden;
-	width:30%;
-}
+	   width:30%;
+    overflow:scroll;
+    height:100%;
+    }
 
 
 

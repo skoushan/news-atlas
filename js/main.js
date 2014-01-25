@@ -85,7 +85,7 @@ var rssoutput = "<b>Latest World News</b><br /><ul>"
         if (!result.error) {
             var thefeeds = result.feed.entries
             for (var i = 0; i < thefeeds.length; i++)
-                rssoutput += "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>"
+                rssoutput += "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + " - " + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>"
             rssoutput += "</ul>"
             feedcontainer.innerHTML = rssoutput
         } else
@@ -95,3 +95,9 @@ var rssoutput = "<b>Latest World News</b><br /><ul>"
 window.onload = function () {
     rssfeedsetup()
 }
+
+$("nav a").addClass("selected");
+$("nav a").click(function() {
+    $(this).toggleClass("selected");
+    console.log($(this).attr("id") + " - " + ($(this).hasClass("selected") ? "enabled" : "disabled"));
+});
