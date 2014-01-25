@@ -62,7 +62,7 @@ function codeAddress() {
 			markers.sort(function(a,b){a.add<b.add});
 			for (var i =0;i<markers.length-1;i++){
 				if (markers[i].add==markers[i+1].add){
-					newsTitles[i]+= "\n"+newsTitles[i+1];
+					newsTitles[i]+= "<br>"+newsTitles[i+1];
 					markers.splice(i+1,1);
 					i--;
 				}
@@ -88,7 +88,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 
 var feedcontainer = document.getElementById("feeddiv")
-var feedurl = "http://www.rssmix.com/u/3851420/rss.xml"
+var feedurl = "http://feeds.reuters.com/Reuters/worldNews"
 var feedlimit = 50
 var rssoutput = "<b>Latest World News</b><br /><ul>"
 
