@@ -190,17 +190,18 @@ body {
 }
 
 header {
-    /*position:fixed;
-    z-index:1; */
+    position:fixed;
+    z-index:1;
     width:70%;
     background-color:rgba(0,0,0,.4);
     text-align:left;
+    padding-left:1em;
 }
 header h1 { margin: 0; /*text-shadow:0px 0px 0.1em #000;*/}
 header h1 a, nav a {
     display:block;
     float:left;
-    color:#000;
+    color:#fff;
     height:50px;
     line-height:50px;
     padding: 0 10px;
@@ -214,6 +215,32 @@ nav a.selected {
     opacity:1;
     font-weight: bold;
     /*text-shadow:0px 0px 0.1em #000;*/
+}
+      #map-canvas { 
+	  float:left;
+	  height: 100%;
+	  width:100% 
+	  }
+	  #feeddiv{
+        padding:1em;
+
+	   width:30%;
+        overflow:scroll;
+    overflow-x:hidden;
+        height:100%;
+        position:fixed;
+        right:0;
+}
+
+#feeddiv, header {
+    z-index:1;
+    background-color:rgba(0,0,0,0.4);
+-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+box-sizing: border-box;         /* Opera/IE 8+ */   
+}
+#feeddiv, #feeddiv a {
+        color:#fff;
 }
 .title {
 font: 150%/1.4 'Raleway',Helvetica, sans-serif;
@@ -319,17 +346,7 @@ ul li a, ul li a:visited {
 	color:#000;
 	
 }
-      #map-canvas { 
-	  float:left;
-	  height: 100%;
-	  width:70% 
-	  }
-	  #feeddiv{
-		  float:right;
-	   width:30%;
-    overflow:scroll;
-    height:100%;
-    }
+
 
 
 
