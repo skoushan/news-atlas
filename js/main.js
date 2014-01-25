@@ -2,6 +2,8 @@ google.load("feeds", "1"); //Load Google Ajax Feed API (version 1)
 var geocoder;
 var map;
 var address;
+var contentString;
+var markers = new Array();
 google.maps.visualRefresh = true;
 
 function initialize() {
@@ -25,6 +27,7 @@ function codeAddress() {
     }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
 
+            // contentString = whatever you want in the popup
             var contentString = '<div id="content">' +
                 '<div id="siteNotice">' +
                 '</div>' +
@@ -43,6 +46,7 @@ function codeAddress() {
                 animation: google.maps.Animation.DROP
             });
 
+            markers.push(marker);
             var flag = 1;
             google.maps.event.addListener(marker, 'click', function () {
                 if (flag == 1) {
