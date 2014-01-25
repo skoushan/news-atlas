@@ -26,12 +26,19 @@ function initialize() {
     var mapOptions = {
         center: new google.maps.LatLng(29, 69),
         zoom: resolution,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+		mapTypeControl: false,
+		zoomControl: true,
+		zoomControlOptions: {
+			style: google.maps.ZoomControlStyle.LARGE,
+			position: google.maps.ControlPosition.LEFT_CENTER
+		},
+		panControl: true,
+		panControlOptions: {
+			position: google.maps.ControlPosition.LEFT_CENTER	
+		},
+		streetViewControl: false
     };
-    //			var strictBounds = new google.maps.LatLngBounds(
-    //			new google.maps.LatLng(85, -180),
-    //		new google.maps.LatLng(-85, 180)
-    //);
+
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 	infowindow = new google.maps.InfoWindow();
 	map.setOptions({minZoom:2});
