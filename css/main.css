@@ -193,6 +193,9 @@ body {
 body {
     font-family: 'Alegreya Sans SC', sans-serif;
 }
+body {
+    font-family: 'PT Sans', sans-serif;
+}
 header {
     position:fixed;
     z-index:1;
