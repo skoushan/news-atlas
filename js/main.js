@@ -41,12 +41,13 @@ function initialize() {
 
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 	infowindow = new google.maps.InfoWindow({
-	maxWidth:300
+	maxWidth:500
 	});
 	map.setOptions({minZoom:2});
 }
 function codeAddress() {
-	address = newsItems.shift()
+	address = newsItems[index];
+	contentString = newsTitles[index];
     geocoder.geocode({
         'address': address
     }, function (results, status) {
@@ -60,12 +61,10 @@ function codeAddress() {
             });
             markers.push(marker);
 			
-			markers.sort(function(a,b){a.add<b.add});
-			for (var i =0;i<markers.length-1;i++){
-				if (markers[i].add==markers[i+1].add){
-					newsTitles[i]+= "<br>"+newsTitles[i+1];
-					markers.splice(i+1,1);
-					i--;
+			for(var i=0;i<markers.length-1; i++ ) {
+				var place = markers[i].add;
+				if (place==marker.add) {
+					newsTitles[i] += "<br>"+contentString;
 				}
 			}
 			
@@ -75,6 +74,11 @@ function codeAddress() {
 				map.setCenter(map.center);
 				title: address;
             });
+			
+			google.maps.event.addListener(map, 'click', function(){
+				infowindow.close();
+			});
+			
 			index++;
         } else if (status == google.maps.GeocodeStatus.ZERO_RESULTS){
             clearInterval(cycle);
@@ -107,7 +111,7 @@ var rssoutput = "<b>Latest World News</b><br /><ul>"
 				address = thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1);
 				newsItems.push(address);
 				rssoutput += "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + " - " + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>"
-				contentString = "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + " - " + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>" + "<p>" + thefeeds[i].content.substr(0,thefeeds[i].content.indexOf("<")) + "</p>"
+				contentString = "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + " - " + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>" + "<br>" + thefeeds[i].content.substr(0,thefeeds[i].content.indexOf("<"))+"<br>"
 				newsTitles.push(contentString);
 				feedcontainer.innerHTML = rssoutput
 			}
