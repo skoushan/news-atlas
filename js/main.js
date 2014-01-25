@@ -21,7 +21,7 @@ function initialize() {
 }
 
 function codeAddress() {
-    address = document.getElementById('address').value;
+
     geocoder.geocode({
         'address': address
     }, function (results, status) {
@@ -33,7 +33,6 @@ function codeAddress() {
                 '</div>' +
                 '<h1 id="firstHeading" class="firstHeading">TEST					</h1>' +
                 '<div id="bodyContent">' +
-                '<p>testasdfasdfasdf</p>' +
                 '</div>' +
                 '</div>';
 
@@ -83,18 +82,24 @@ var rssoutput = "<b>Latest World News</b><br /><ul>"
 
     function displayfeed(result) {
         if (!result.error) {
+
             var thefeeds = result.feed.entries
-            for (var i = 0; i < thefeeds.length; i++)
+            for (var i = 0; i < thefeeds.length; i++){
+			address = thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1);
+			
+			codeAddress()
                 rssoutput += "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + " - " + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>"
-            rssoutput += "</ul>"
             feedcontainer.innerHTML = rssoutput
-        } else
+			}
+			            rssoutput += "</ul>"
+			        } else
             alert("Error fetching feeds!")
     }
 
 window.onload = function () {
     rssfeedsetup()
 }
+
 
 $("nav a").addClass("selected");
 $("nav a").click(function() {
