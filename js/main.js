@@ -3,7 +3,9 @@ var geocoder;
 var map;
 var address;
 var contentString;
+var cycle;
 var markers = new Array();
+var newsItems = new Array();
 google.maps.visualRefresh = true;
 
 function initialize() {
@@ -21,12 +23,11 @@ function initialize() {
 }
 
 function codeAddress() {
-
+	address = newsItems.shift()
     geocoder.geocode({
         'address': address
     }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-
             // contentString = whatever you want in the popup
             var contentString = '<div id="content">' +
                 '<div id="siteNotice">' +
@@ -59,9 +60,11 @@ function codeAddress() {
                     flag = 1;
                 }
             });
-        } else {
-            alert("Geocode was not successful: " + status);
-        }
+        } else if (status == google.maps.GeocodeStatus.ZERO_RESULTS){
+            clearInterval(cycle);
+        } else if (status == google.maps.GeocodeStatus.OVER_QUERY_LIMIT){
+			
+		}
     });
 }
 
@@ -71,7 +74,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 var feedcontainer = document.getElementById("feeddiv")
 var feedurl = "http://feeds.reuters.com/Reuters/worldNews"
-var feedlimit = 20
+var feedlimit = 25
 var rssoutput = "<b>Latest World News</b><br /><ul>"
 
     function rssfeedsetup() {
@@ -86,11 +89,11 @@ var rssoutput = "<b>Latest World News</b><br /><ul>"
             var thefeeds = result.feed.entries
             for (var i = 0; i < thefeeds.length; i++){
 			address = thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1);
-			
-			codeAddress()
+			newsItems.push(address);
                 rssoutput += "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + " - " + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>"
             feedcontainer.innerHTML = rssoutput
 			}
+			cycle = setInterval(codeAddress, 400);
 			            rssoutput += "</ul>"
 			        } else
             alert("Error fetching feeds!")
