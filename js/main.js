@@ -5,8 +5,11 @@ var address;
 var contentString;
 var cycle;
 var resolution;
+var index=0;
+var infowindow;
 var markers = new Array();
 var newsItems = new Array();
+var newsTitles = new Array();
 google.maps.visualRefresh = true;
 
 function initialize() {
@@ -30,6 +33,8 @@ function initialize() {
     //		new google.maps.LatLng(-85, 180)
     //);
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+	infowindow = new google.maps.InfoWindow();
+	map.setOptions({minZoom:2});
 }
 
 function codeAddress() {
@@ -38,38 +43,31 @@ function codeAddress() {
         'address': address
     }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            // contentString = whatever you want in the popup
-            var contentString = '<div id="content">' +
-                '<div id="siteNotice">' +
-                '</div>' +
-                '<h1 id="firstHeading" class="firstHeading">TEST					</h1>' +
-                '<div id="bodyContent">' +
-                '</div>' +
-                '</div>';
-
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
             var marker = new google.maps.Marker({
                 map: map,
                 position: results[0].geometry.location,
-                animation: google.maps.Animation.DROP
+                animation: google.maps.Animation.DROP,
+				pos: index, //index of marker in array
+				add: address
             });
-
             markers.push(marker);
-            var flag = 1;
+			
+			markers.sort(function(a,b){a.add<b.add});
+			for (var i =0;i<markers.length-1;i++){
+				if (markers[i].add==markers[i+1].add){
+					newsTitles[i]+= "\n"+newsTitles[i+1];
+					markers.splice(i+1,1);
+					i--;
+				}
+			}
+			
             google.maps.event.addListener(marker, 'click', function () {
-                if (flag == 1) {
-                    infowindow.open(map, marker);
-                    map.setCenter(map.center);
-                    title: address;
-                    flag = 0;
-                } else {
-                    infowindow.close(map, marker);
-                    map.setCenter(map.center);
-                    flag = 1;
-                }
+				infowindow.setContent(newsTitles[this.pos]);
+				infowindow.open(map, this);
+				map.setCenter(map.center);
+				title: address;
             });
+			index++;
         } else if (status == google.maps.GeocodeStatus.ZERO_RESULTS){
             clearInterval(cycle);
         } else if (status == google.maps.GeocodeStatus.OVER_QUERY_LIMIT){
@@ -98,15 +96,17 @@ var rssoutput = "<b>Latest World News</b><br /><ul>"
 
             var thefeeds = result.feed.entries
             for (var i = 0; i < thefeeds.length; i++){
-			address = thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1);
-			newsItems.push(address);
-                rssoutput += "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + " - " + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>"
-            feedcontainer.innerHTML = rssoutput
+				address = thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1);
+				newsItems.push(address);
+				rssoutput += "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + " - " + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>"
+				contentString = "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + " - " + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>"
+				newsTitles.push(contentString);
+				feedcontainer.innerHTML = rssoutput
 			}
 			cycle = setInterval(codeAddress, 600);
-			            rssoutput += "</ul>"
-			        } else
-            alert("Error fetching feeds!")
+			rssoutput += "</ul>"
+			} else
+				alert("Error fetching feeds!")
     }
 
 window.onload = function () {
