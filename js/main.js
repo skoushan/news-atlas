@@ -4,15 +4,25 @@ var map;
 var address;
 var contentString;
 var cycle;
+var resolution;
 var markers = new Array();
 var newsItems = new Array();
 google.maps.visualRefresh = true;
 
 function initialize() {
     geocoder = new google.maps.Geocoder();
+	if ((screen.availWidth >= 1920) || (screen.availHeight >= 1080)) {
+		resolution = 3;
+	}
+	else if ((screen.availWidth >= 1280) || (screen.availHeight >= 720)) {
+		resolution = 2;
+	}
+	else {
+		resolution = 1;
+	}
     var mapOptions = {
         center: new google.maps.LatLng(29, 69),
-        zoom: 2,
+        zoom: resolution,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     //			var strictBounds = new google.maps.LatLngBounds(
