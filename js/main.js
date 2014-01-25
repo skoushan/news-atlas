@@ -65,6 +65,7 @@ function codeAddress() {
 				var place = markers[i].add;
 				if (place==marker.add) {
 					newsTitles[i] += "<br>"+contentString;
+					console.log(place+"		"+marker.add);
 				}
 			}
 			
