@@ -340,7 +340,8 @@ ul li a, ul li a:visited {
      color:#263248;
      height:auto;
      line-height:20px;
-     padding:10px;
+	padding-top:10px;
+	padding-bottom:10px;
 }
 a:link {color:#000000;} 
 

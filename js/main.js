@@ -40,7 +40,9 @@ function initialize() {
     };
 
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-	infowindow = new google.maps.InfoWindow();
+	infowindow = new google.maps.InfoWindow({
+	maxWidth:300
+	});
 	map.setOptions({minZoom:2});
 }
 
