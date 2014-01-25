@@ -41,13 +41,12 @@ function initialize() {
 
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 	infowindow = new google.maps.InfoWindow({
-	maxWidth:500
+	maxWidth:300
 	});
 	map.setOptions({minZoom:2});
 }
 function codeAddress() {
-	address = newsItems[index];
-	contentString = newsTitles[index];
+	address = newsItems.shift()
     geocoder.geocode({
         'address': address
     }, function (results, status) {
@@ -61,10 +60,12 @@ function codeAddress() {
             });
             markers.push(marker);
 			
-			for(var i=0;i<markers.length-1; i++ ) {
-				var place = markers[i].add;
-				if (place==marker.add) {
-					newsTitles[i] += "<br>"+contentString;
+			markers.sort(function(a,b){a.add<b.add});
+			for (var i =0;i<markers.length-1;i++){
+				if (markers[i].add==markers[i+1].add){
+					newsTitles[i]+= "<br>"+newsTitles[i+1];
+					markers.splice(i+1,1);
+					i--;
 				}
 			}
 			
@@ -74,11 +75,6 @@ function codeAddress() {
 				map.setCenter(map.center);
 				title: address;
             });
-			
-			google.maps.event.addListener(map, 'click', function(){
-				infowindow.close();
-			});
-			
 			index++;
         } else if (status == google.maps.GeocodeStatus.ZERO_RESULTS){
             clearInterval(cycle);
