@@ -161,6 +161,7 @@ textarea {
 
 }
 
+
 .list{
 list-style-image:disk;}
 
@@ -189,6 +190,9 @@ body {
 	border: 0;
 }
 
+body {
+    font-family: 'Alegreya Sans SC', sans-serif;
+}
 header {
     position:fixed;
     z-index:1;
@@ -231,7 +235,12 @@ nav a.selected {
         position:fixed;
         right:0;
 }
-
+#feeddiv ul li a {
+    text-decoration:none;
+}
+#feeddiv ul li a:hover {
+    text-decoration:underline;
+}
 #feeddiv, header {
     z-index:1;
     background-color:rgba(0,0,0,0.4);
