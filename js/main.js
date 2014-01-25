@@ -11,7 +11,7 @@ google.maps.visualRefresh = true;
 function initialize() {
     geocoder = new google.maps.Geocoder();
     var mapOptions = {
-        center: new google.maps.LatLng(-20, 0),
+        center: new google.maps.LatLng(29, 69),
         zoom: 2,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -93,7 +93,7 @@ var rssoutput = "<b>Latest World News</b><br /><ul>"
                 rssoutput += "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + " - " + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>"
             feedcontainer.innerHTML = rssoutput
 			}
-			cycle = setInterval(codeAddress, 400);
+			cycle = setInterval(codeAddress, 600);
 			            rssoutput += "</ul>"
 			        } else
             alert("Error fetching feeds!")
