@@ -291,6 +291,7 @@ li {
 	
 }
 
+
 a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
 	border: none;
 }
@@ -341,6 +342,7 @@ ul li a, ul li a:visited {
      line-height:20px;
      padding:10px;
 }
+a:link {color:#000000;} 
 
 #link {
 	text-decoration:underline;

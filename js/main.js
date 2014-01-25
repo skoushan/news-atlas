@@ -106,14 +106,13 @@ var rssoutput = "<b>Latest World News</b><br /><ul>"
 				address = thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1);
 				newsItems.push(address);
 				rssoutput += "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + " - " + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>"
-				contentString = "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + " - " + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>"
+				contentString = "<li><a href='" + thefeeds[i].link + "'>" + thefeeds[i].title + " - " + thefeeds[i].content.substr(0, thefeeds[i].content.indexOf("(Reuters)") - 1) + "</a></li>" + "<p>" + thefeeds[i].content.substr(0,thefeeds[i].content.indexOf("<")) + "</p>"
 				newsTitles.push(contentString);
 				feedcontainer.innerHTML = rssoutput
 			}
 			cycle = setInterval(codeAddress, 600);
 			rssoutput += "</ul>"
-			} else
-				alert("Error fetching feeds!")
+			} else				alert("Error fetching feeds!")
     }
 
 window.onload = function () {
