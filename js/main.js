@@ -45,7 +45,6 @@ function initialize() {
 	});
 	map.setOptions({minZoom:2});
 }
-
 function codeAddress() {
 	address = newsItems.shift()
     geocoder.geocode({

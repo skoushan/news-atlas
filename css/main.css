@@ -343,7 +343,8 @@ ul li a, ul li a:visited {
 	padding-top:10px;
 	padding-bottom:10px;
 }
-a:link {color:#000000;} 
+a:link {color:#000000;}
+
 
 #link {
 	text-decoration:underline;
