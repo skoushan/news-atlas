@@ -73,8 +73,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 
 var feedcontainer = document.getElementById("feeddiv")
-var feedurl = "http://feeds.reuters.com/Reuters/worldNews"
-var feedlimit = 25
+var feedurl = "http://www.rssmix.com/u/3851420/rss.xml"
+var feedlimit = 50
 var rssoutput = "<b>Latest World News</b><br /><ul>"
 
     function rssfeedsetup() {
